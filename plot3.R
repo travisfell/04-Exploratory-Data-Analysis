@@ -1,5 +1,5 @@
-# plot2.R
-# this script creates the global active power line graph .png file
+# plot3.R
+# this script creates the submetering line graph and .png file
 
 # before running the script, download the zip file from 
 # https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip
@@ -25,15 +25,20 @@ data$DateTime <- paste(data$Date, data$Time, sep = " ")
 # convert date-time columns to date/time data types
 data$DateTime <- strptime(data$DateTime, "%d/%m/%Y %H:%M:%S", tz = "GMT")
 
-# create 2 variable line graph
-global <- data$Global_active_power
+# plot line graph
 daytime <- data$DateTime
-with(data, plot(daytime,global,
-    type = "l",
-    ylab = "Global Active Power (kilowatts)",
-    xlab = ""))
+png("plot3.png")
+with(data, plot(daytime, Sub_metering_1, 
+                type = "n",
+                ylab = "Energy sub metering",
+                xlab = "",
+                cex=0.5))
+with(data, lines(daytime, Sub_metering_1))
+with(data, lines(daytime, Sub_metering_2, col = "red"))
+with(data, lines(daytime, Sub_metering_3, col = "blue"))
+legend("topright", lty = 1, col = c("black", "red", "blue"), 
+       legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
-
-# send to plot2.png
-dev.copy(png, "plot2.png")
+# send to plot3.png
+#dev.copy(png, "plot3.png")
 dev.off()
