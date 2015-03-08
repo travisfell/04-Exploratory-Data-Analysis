@@ -26,14 +26,14 @@ data$DateTime <- paste(data$Date, data$Time, sep = " ")
 data$DateTime <- strptime(data$DateTime, "%d/%m/%Y %H:%M:%S", tz = "GMT")
 
 # create 2 variable line graph
-global <- data$Global_active_power
 daytime <- data$DateTime
-with(data, plot(daytime,global,
+png("plot2.png")
+with(data, plot(daytime,Global_active_power,
     type = "l",
     ylab = "Global Active Power (kilowatts)",
     xlab = ""))
 
 
 # send to plot2.png
-dev.copy(png, "plot2.png")
+#dev.copy(png, "plot2.png")
 dev.off()
