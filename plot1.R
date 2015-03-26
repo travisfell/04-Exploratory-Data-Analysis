@@ -26,9 +26,10 @@ data$DateTime <- paste(data$Date, data$Time, sep = " ")
 data$DateTime <- strptime(data$DateTime, "%d/%m/%Y %H:%M:%S", tz = "GMT")
 
 # create histogram
+png("plot1.png")
 with(data, hist(Global_active_power, col = "red", 
                 xlab = "Global Active Power (kilowatts)",
                 main = "Global Active Power"))
 # send to plot1.png
-dev.copy(png, "plot1.png")
+#dev.copy(png, "plot1.png")
 dev.off()
